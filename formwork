@@ -1,0 +1,49 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 0.0.0.0:9090
+external-ui: /usr/local/clash/ui
+# DNS服务器
+dns:
+  # 开启Clash内置DNS服务器
+  # 默认为false
+  enable: true
+  # 模式fake-ip
+  enhanced-mode: fake-ip
+  # DNS监听端口
+  listen: 0.0.0.0:9053
+  fake-ip-range: 12.0.0.1/16
+proxies:
+  # 以上为代理地址请插入
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - ♻️  自动选择
+      - ⚖️  负载均衡-轮询
+      - ⚖️  负载均衡-散列
+      # 以上为节点选择组的自动选择代理请插入
+  - name: ♻️  自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      # 以上为自动选择组下面的代理地址请插入
+  - name: ⚖️  负载均衡-轮询
+    type: load-balance
+    url: http://www.google.com/generate_204
+    interval: 300
+    strategy: round-robin
+    proxies:
+      # 以上为轮询组下面的代理地址请插入
+  - name: ⚖️  负载均衡-散列
+    type: load-balance
+    url: http://www.google.com/generate_204
+    interval: 300
+    strategy: consistent-hashing
+    proxies:
+      # 以上为散列组下面的代理地址请插入
+rules:
+ - MATCH,🚀 节点选择
