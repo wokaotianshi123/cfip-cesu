@@ -403,7 +403,7 @@ echo --$date-- "------------------------正在生成v2ray地址-----------------
 $parm_path/Create_v2ray
 echo --$date-- "------------------------等待代理服务稳定-------------------------" |tee -a /tmp/cf.log
 sleep 5
-$parm_path/Creategithubfile
+#$parm_path/Creategithubfile
 #清除日志内容
 a=$(grep -c "" /tmp/cf.log)
 if [ $a -gt 100 ]; then
